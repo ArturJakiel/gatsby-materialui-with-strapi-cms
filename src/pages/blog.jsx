@@ -44,19 +44,3 @@ export const pageQuery = graphql`
   }
 `;
 export default blogPage;
-
-/*
-<div key={post.node.id}>
-          <h3>{post.node.frontmatter.title}</h3>
-          <span>
-            <i>
-              Posted by: {post.node.frontmatter.author} on {post.node.frontmatter.date}
-            </i>
-          </span>
-          <br />
-          <Link to={post.node.frontmatter.path}>Read More</Link>
-          <br />
-          <hr />
-        </div>
-
-*/
