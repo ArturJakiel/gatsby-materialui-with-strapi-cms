@@ -4,6 +4,7 @@ slug: "post-two"
 date: "2020-07-02"
 title: "test title 2st post"
 author: "author 2"
+lead: "This is long lead witch text for post two dolor, sit amet consectetur adipisicing"
 ---
 
 # H1 TEXT

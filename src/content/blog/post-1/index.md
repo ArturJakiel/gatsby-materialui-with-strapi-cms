@@ -4,6 +4,7 @@ slug: "post-one"
 date: "2020-07-01"
 title: "test title 1st post"
 author: "author 1"
+lead: "This is long lead witch text for post one dolor, sit amet consectetur adipisicing"
 ---
 
 # H1 TEXT
