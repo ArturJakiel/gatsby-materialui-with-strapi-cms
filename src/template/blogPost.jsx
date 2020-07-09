@@ -2,10 +2,11 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import { graphql } from "gatsby";
-
+import ReactMarkdown from "react-markdown";
 import Typography from "@material-ui/core/Typography";
 import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import { Link as MaterialLink } from "@material-ui/core";
+import Chip from "@material-ui/core/Chip";
 
 import Layout from "../layouts/mainLayout";
 
@@ -15,7 +16,7 @@ const BlogBreadcrumbs = ({ title }) => {
       <MaterialLink color="inherit" href="/">
         Home
       </MaterialLink>
-      <MaterialLink color="inherit" href="/blog">
+      <MaterialLink color="inherit" href="/blog/">
         Blog
       </MaterialLink>
       <Typography color="textPrimary">{title}</Typography>
@@ -24,31 +25,43 @@ const BlogBreadcrumbs = ({ title }) => {
 };
 
 const BlogPostTemplate = ({ data }) => {
-  const post = data.markdownRemark;
+  const post = data.strapiPosts;
 
   return (
     <Layout>
-      <BlogBreadcrumbs title={post.frontmatter.title} />
+      <BlogBreadcrumbs title={post.title} />
+      {post.tags.map((tag) => (
+        <Chip
+          style={{ marginRight: "10px" }}
+          key={tag.id}
+          size="small"
+          label={tag.name}
+        />
+      ))}
       <hr />
-      <h1>{post.frontmatter.title}</h1>
+      <h1>{post.title}</h1>
       <h4>
-        Posted by {post.frontmatter.author} on {post.frontmatter.date}
+        Posted by {post.author} on {post.date}
       </h4>
-      <div dangerouslySetInnerHTML={{ __html: post.html }} />
+      <article>
+        <ReactMarkdown source={post.content} />
+      </article>
     </Layout>
   );
 };
 
 export const postQuery = graphql`
   query($slug: String!) {
-    markdownRemark(frontmatter: { slug: { eq: $slug } }) {
-      html
-      frontmatter {
-        path
-        title
-        author
-        date
-        lead
+    strapiPosts(slug: { eq: $slug }) {
+      author
+      content
+      date
+      slug
+      title
+      lead
+      tags {
+        id
+        name
       }
     }
   }

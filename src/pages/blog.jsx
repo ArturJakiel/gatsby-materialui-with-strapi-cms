@@ -11,14 +11,16 @@ const blogPage = ({ data }) => {
     <Layout>
       <SEO title="Blog Page" />
       <h1>Blog Page</h1>
-      {data.allMarkdownRemark.edges.map((post) => (
+      {data.allStrapiPosts.edges.map((post) => (
         <MediaCard
           key={post.node.id}
-          title={post.node.frontmatter.title}
-          lead={post.node.frontmatter.lead}
-          author={post.node.frontmatter.author}
-          date={post.node.frontmatter.date}
-          link={post.node.frontmatter.path}
+          postId={post.node.id}
+          title={post.node.title}
+          lead={post.node.lead}
+          author={post.node.author}
+          date={post.node.date}
+          tags={post.node.tags}
+          link={post.node.slug}
         />
       ))}
     </Layout>
@@ -27,16 +29,18 @@ const blogPage = ({ data }) => {
 
 export const pageQuery = graphql`
   query {
-    allMarkdownRemark {
+    allStrapiPosts {
       edges {
         node {
           id
-          frontmatter {
-            path
-            title
-            date
-            author
-            lead
+          title
+          lead
+          author
+          date
+          slug
+          tags {
+            name
+            id
           }
         }
       }
